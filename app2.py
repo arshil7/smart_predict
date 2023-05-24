@@ -20,7 +20,10 @@ if (selected == 'Diabetes Prediction'):
 
 
 
-
+def predict(Pregnancies=0, Glucose=0, BloodPressure=0, SkinThickness=0,	Insulin=0, BMI=0, DiabetesPedigreeFunction=0, Age=0):
+    x = np.array([[Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
+    y = model.predict(x)
+    return y[0] # reutrn first elemnt of array
 
 
 with st.form(key='this_form'):

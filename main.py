@@ -9,9 +9,10 @@ def load_model(model_file):
 
 with st.sidebar:
 
-    selected = option_menu('Smart Disease Prediction',
+    selected = option_menu('Smart Health Predictor',
                            ['Diabetes Prediction',
                             'Heart Prediction'],
+                            icons = ['activity', 'heart'],
                             default_index=1)
     
 
@@ -30,7 +31,7 @@ if (selected == 'Diabetes Prediction'):
     with st.form(key='this_form'):
         col1,col2,col3 = st.columns(3)
         with col1:
-            Pregnancies = st.number_input(label='Pregnancies', value=1, min_value=1, step=1)
+            Pregnancies = st.number_input(label='Pregnancies', value=1, min_value=0, step=1)
 
         with col2:
             Glucose = st.number_input(label='Glucose', value=0, min_value=0, max_value=500)
@@ -38,22 +39,20 @@ if (selected == 'Diabetes Prediction'):
         with col3:
             BloodPressure = st.number_input(label='BloodPressure', value=0, min_value=0, max_value=300)
 
-        SkinThickness = st.slider(label='Skin Thick', value=1, min_value=0, max_value=1000)
+        SkinThickness = st.slider(label='Skin Thick', value=1, min_value=0, max_value=100)
         Insulin = st.slider(label='INsulin', value=1, min_value=0, max_value=1000)
 
         col4, col5, col6 = st.columns(3)
         with col4:
-            BMI = st.number_input(label='BMI', value=1, min_value=0, max_value=300, step=1)
+            BMI = st.number_input(label='BMI', value=1.0, min_value=0.0, max_value=100.0,)
 
         with col5:
-            DiabetesPedigreeFunction = st.number_input(label='DPF', value=1, min_value=0)
+            DiabetesPedigreeFunction = st.number_input(label='DPF', value=1.0, min_value=0.0)
 
         with col6:
             Age =  st.number_input(label='Age', value=1, min_value=0)        
 
         
-
-    
         submit_button = st.form_submit_button(label='Predict')
         
         
@@ -62,9 +61,9 @@ if (selected == 'Diabetes Prediction'):
             model = load_model('diab_pre.joblib')
             target = predict(Pregnancies, Glucose, BloodPressure,SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age)
             if target == 0:
-                st.success(f'You dont have Diab! :thumbsup:')
+                st.success(f'You dont have Diabetes! :thumbsup:')
             else:
-                st.error('You have Diab :thumbsdown:')
+                st.error('You have Diabetes! :thumbsdown:')
 
 
 if (selected == 'Heart Prediction'): #HEART PREDICTION
@@ -92,8 +91,8 @@ if (selected == 'Heart Prediction'): #HEART PREDICTION
         with col3:
             cp = st.number_input(label='Chest Pain Type''[0,1,2,3]', value=0, min_value=0, max_value=3)
 
-        trestbps = st.slider(label='Trestbps resting blood pressure (in mm Hg on admission to the hospital)', value=1, min_value=0, max_value=1000)
-        chol = st.slider(label='Chol serum cholestoral in mg/dl', value=1, min_value=0, max_value=1000)
+        trestbps = st.slider(label='Trestbps resting blood pressure (in mm Hg on admission to the hospital)', value=1, min_value=0, max_value=200)
+        chol = st.slider(label='Chol serum cholestoral in mg/dl', value=1, min_value=0, max_value=500)
 
         col3,col4 = st.columns(2)
         with col3:
@@ -102,7 +101,7 @@ if (selected == 'Heart Prediction'): #HEART PREDICTION
         with col4:
             restecg = st.number_input(label='Restecg  [resting electrocardiographic results]', value=1, min_value=0, max_value=2)
     
-        thalach = st.slider(label='Thalach [maximum heart rate achieved]', value=1, min_value=0, max_value=500)
+        thalach = st.slider(label='Thalach [maximum heart rate achieved]', value=1, min_value=0, max_value=300)
 
         col5,col6,col7 = st.columns(3)
         with col5:
